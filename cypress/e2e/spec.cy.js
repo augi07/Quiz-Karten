@@ -1,0 +1,32 @@
+describe('template spec', () => {
+  it('Is in Flashcard App', () => {
+    cy.visit('http://localhost:9000/')
+    cy.get('[id=Question]').type('1 + 1')
+    cy.get('[id=Answer]').type('2')
+    cy.get('[id=AddFlashcard]').click()
+  })
+  it('Edit Flascard' , () =>{
+    cy.visit('http://localhost:9000/')
+    cy.get('[id=Question]').type('1 + 1')
+    cy.get('[id=Answer]').type('2')
+    cy.get('[id=AddFlashcard]').click()
+    cy.get('[id=Edit]').click()
+    cy.get('[id=EditQuestion]').clear().type('2 + 2')
+    cy.get('[id=EditAnswer]').clear().type('4')
+    cy.get('[id=Save]').click()
+  })
+  it('Delete Flashcard' , () =>{
+    cy.visit('http://localhost:9000/')
+    cy.get('[id=Question]').type('1 + 1')
+    cy.get('[id=Answer]').type('2')
+    cy.get('[id=AddFlashcard]').click()
+    cy.get('[id=Delete]').click()
+  })
+  it('Show Flascard' , () =>{
+    cy.visit('http://localhost:9000/')
+    cy.get('[id=Question]').type('1 + 1')
+    cy.get('[id=Answer]').type('2')
+    cy.get('[id=AddFlashcard]').click()
+    cy.get('[id=ShowAnswer]').click()
+  })
+})

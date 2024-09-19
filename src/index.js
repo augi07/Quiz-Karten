@@ -31,6 +31,7 @@ function view(dispatch, model) {
     // Input form for adding flashcards
     div({ className: "flex gap-4 w-full" }, [
       input({
+        id: "Question",
         className: inputStyle,
         type: "text",
         placeholder: "Question",
@@ -38,13 +39,14 @@ function view(dispatch, model) {
         oninput: (e) => dispatch({ type: "UPDATE_QUESTION", question: e.target.value }),
       }),
       input({
+        id: "Answer",
         className: inputStyle,
         type: "text",
         placeholder: "Answer",
         value: model.currentAnswer,
         oninput: (e) => dispatch({ type: "UPDATE_ANSWER", answer: e.target.value }),
       }),
-      button({ className: btnStyle, onclick: () => dispatch({ type: "ADD_FLASHCARD" }) }, "+ Add Flashcard"),
+      button({ id:"AddFlashcard", className: btnStyle, onclick: () => dispatch({ type: "ADD_FLASHCARD" }) }, "+ Add Flashcard"),
     ]),
 
     // Render the flashcards only if there are any in the model
@@ -62,21 +64,23 @@ function flashcardView(dispatch, card, index, model) {
     card.editMode
       ? div({ className: "flex flex-col" }, [
           textarea({
+            id: "EditQuestion",
             className: textAreaStyle,
             value: card.question,
             oninput: (e) => dispatch({ type: "UPDATE_FLASHCARD", index, question: e.target.value, field: 'question' }),
           }),
           textarea({
+            id: "EditAnswer",
             className: textAreaStyle,
             value: card.answer,
             oninput: (e) => dispatch({ type: "UPDATE_FLASHCARD", index, answer: e.target.value, field: 'answer' }),
           }),
-          button({ className: btnStyle, onclick: () => dispatch({ type: "SAVE_EDIT", index }) }, "Save"),
+          button({ id:"Save", className: btnStyle, onclick: () => dispatch({ type: "SAVE_EDIT", index }) }, "Save"),
         ])
       // Generated Code
       : div({}, [
           p({ className: "font-bold" }, `Question: ${card.question}`),
-          card.showAnswer ? p({}, `Answer: ${card.answer}`) : button({ className: btnStyle, onclick: () => dispatch({ type: MSGS.SHOW_FLASHCARD, index }) }, "Show Answer"),
+          card.showAnswer ? p({}, `Answer: ${card.answer}`) : button({ id:"ShowAnswer", className: btnStyle, onclick: () => dispatch({ type: MSGS.SHOW_FLASHCARD, index }) }, "Show Answer"),
         ]),
 
     // Rating buttons
@@ -88,8 +92,8 @@ function flashcardView(dispatch, card, index, model) {
 
     // Edit and delete buttons
     div({ className: "flex justify-between mt-4" }, [
-      button({ className: "text-blue-500", onclick: () => dispatch({ type: MSGS.EDIT_FLASHCARD, index }) }, "Edit"),
-      button({ className: "text-red-500", onclick: () => dispatch({ type: MSGS.DELETE_FLASHCARD, index }) }, "Delete"),
+      button({ id:"Edit", className: "text-blue-500", onclick: () => dispatch({ type: MSGS.EDIT_FLASHCARD, index }) }, "Edit"),
+      button({ id:"Delete", className: "text-red-500", onclick: () => dispatch({ type: MSGS.DELETE_FLASHCARD, index }) }, "Delete"),
     ])
   ]);
 }
